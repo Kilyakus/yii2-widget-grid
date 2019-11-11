@@ -1,0 +1,32 @@
+{
+    "name": "kilyakus/yii2-widget-grid",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kartik Visweswaran",
+            "email": "kartikv2@gmail.com",
+            "homepage": "http://www.krajee.com/"
+        },
+        {
+            "name": "Edited by: Kilyakus",
+            "email": "aleksandr.kilyakov@gmail.com"
+        }
+    ],
+    "require": {
+        "kartik-v/yii2-dialog": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "kilyakus\\widget\\grid\\": "src"
+        }
+    },
+    "suggest": {
+        "kartik-v/yii2-mpdf": "For exporting grids to PDF"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.3.x-dev"
+        }
+    }
+}
