@@ -1,12 +1,4 @@
 <?php
-
-/**
- * @package   yii2-grid
- * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @version   3.3.4
- */
-
 namespace kilyakus\widget\grid;
 
 use Closure;
@@ -14,51 +6,15 @@ use yii\grid\CheckboxColumn as YiiCheckboxColumn;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
-/**
- * The CheckboxColumn displays a column of checkboxes in a grid view and extends the [[YiiCheckboxColumn]] with
- * various enhancements.
- *
- * To add a CheckboxColumn to the gridview, add it to the [[GridView::columns|columns]] configuration as follows:
- *
- * ```php
- * 'columns' => [
- *     // ...
- *     [
- *         'class' => CheckboxColumn::className(),
- *         // you may configure additional properties here
- *     ],
- * ]
- * ```
- *
- * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
- */
 class CheckboxColumn extends YiiCheckboxColumn
 {
     use ColumnTrait;
-    /**
-     * @var boolean highlight current row if checkbox is checked
-     */
+
     public $rowHighlight = true;
-
-    /**
-     * @var string highlight CSS class to be applied for highlighting the row. Defaults to [[GridView::TYPE_DANGER]].
-     */
     public $rowSelectedClass;
-
-    /**
-     * @var string the model attribute to be used in rendering the checkbox input.
-     */
     public $attribute;
+    public $cssClass = 'switch';
 
-    /**
-     * @var string the css class that will be used to find the checkboxes.
-     */
-    public $cssClass = 'kv-row-checkbox';
-
-    /**
-     * @inheritdoc
-     */
     public function init()
     {
         $this->initColumnSettings([
@@ -93,9 +49,6 @@ class CheckboxColumn extends YiiCheckboxColumn
         $this->_clientScript .= "\nkvSelectColumn('{$id}', {$opts});";
     }
 
-    /**
-     * @inheritdoc
-     */
     public function renderDataCell($model, $key, $index)
     {
         $options = $this->fetchContentOptions($model, $key, $index);

@@ -9,7 +9,7 @@
 
 namespace kilyakus\widget\grid;
 
-use kartik\base\AssetBundle;
+use kilyakus\widgets\AssetBundle;
 
 /**
  * Asset bundle for exporting data functionality of [[GridView]] widget.

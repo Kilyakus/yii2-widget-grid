@@ -9,7 +9,7 @@
 
 namespace kilyakus\widget\grid;
 
-use kartik\base\AssetBundle;
+use kilyakus\widgets\AssetBundle;
 
 /**
  * Asset bundle for [[CheckboxColumn]] functionality of the [[GridView]] widget.

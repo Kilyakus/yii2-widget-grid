@@ -9,7 +9,7 @@
 
 namespace kilyakus\widget\grid;
 
-use kartik\base\AssetBundle;
+use kilyakus\widgets\AssetBundle;
 
 /**
  * Asset bundle used for toggling data (from page mode to all records) for the [[GridView]] widget.

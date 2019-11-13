@@ -25,7 +25,7 @@ namespace kilyakus\widget\grid;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since  1.0
  */
-class Module extends \kartik\base\Module
+class Module extends \kilyakus\widgets\Module
 {
     /**
      * The module name for Krajee gridview

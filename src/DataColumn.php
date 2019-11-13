@@ -11,7 +11,7 @@ namespace kilyakus\widget\grid;
 
 use Closure;
 use yii\grid\DataColumn as YiiDataColumn;
-use kartik\base\Config;
+use kilyakus\widgets\Config;
 use yii\helpers\Html;
 
 /**
@@ -282,7 +282,7 @@ class DataColumn extends YiiDataColumn
             return Html::activeCheckbox($this->grid->filterModel, $this->attribute, $this->filterInputOptions);
         }
         $options = array_replace_recursive($this->filterWidgetOptions, $options);
-        /** @var \kartik\base\Widget $widgetClass */
+        /** @var \kilyakus\widgets\Widget $widgetClass */
         return $widgetClass::widget($options);
     }
 }

@@ -10,7 +10,7 @@
 namespace kilyakus\widget\grid;
 
 use Closure;
-use kartik\base\Config;
+use kilyakus\widgets\Config;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;

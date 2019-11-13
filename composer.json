@@ -14,7 +14,9 @@
         }
     ],
     "require": {
-        "kartik-v/yii2-dialog": "~1.0"
+        "kartik-v/yii2-dialog": "~1.0",
+        "kartik-v/yii2-editable": "*",
+        "kilyakus/yii2-switcher": "*"
     },
     "autoload": {
         "psr-4": {

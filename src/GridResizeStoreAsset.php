@@ -9,7 +9,7 @@
 
 namespace kilyakus\widget\grid;
 
-use kartik\base\AssetBundle;
+use kilyakus\widgets\AssetBundle;
 
 /**
  * Asset bundle for storage of resizable columns setting for the [[GridView]] widget.

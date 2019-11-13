@@ -15,7 +15,7 @@ use yii\base\InvalidConfigException;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Response;
-use kartik\base\Config;
+use kilyakus\widgets\Config;
 use kilyakus\widget\grid\GridView;
 use kartik\mpdf\Pdf;
 use kilyakus\widget\grid\Module;
