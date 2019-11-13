@@ -252,7 +252,12 @@ td.kv-group-odd {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {border-color:#f0f3ff;}
 
-.table:not(.table-bordered) > thead > tr:first-child > th {border-bottom-width:0;}
+.table:not(.table-bordered) > thead > tr:first-child > th:not([rowspan]) {border-bottom-width:0;}
 .table:not(.table-bordered) > thead > tr:last-child > th {border-bottom-width:1px;}
 
+.table:not(.table-bordered) > thead > tr:first-child > th[rowspan],
+.table:not(.table-bordered) > thead > tr:last-child td {border-bottom-width:1px;border-bottom-style:solid;}
+
 .table > thead > tr > th {vertical-align:middle;}
+
+.summary {float:right;padding:0.7rem 0;}

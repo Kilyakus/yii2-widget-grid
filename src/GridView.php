@@ -28,6 +28,7 @@ use yii\web\Request;
 use yii\widgets\Pjax;
 use kilyakus\portlet\Portlet;
 use kilyakus\button\Button;
+use kilyakus\switcher\SwitcherAsset;
 
 class GridView extends YiiGridView implements BootstrapInterface
 {
@@ -227,6 +228,8 @@ HTML;
 	protected $_toggleScript;
 
 	protected $_isShowAll = false;
+
+    public $filterSelector = 'select#per-page';
 
 	protected static function parseExportConfig($exportConfig, $defaultExportConfig)
 	{
@@ -1079,7 +1082,18 @@ HTML;
 	protected function beginPjax()
 	{
 		$view = $this->getView();
-		$container = 'jQuery("#' . $this->pjaxSettings['options']['id'] . '")';
+
+        $container = 'var reload = false;';
+
+        $container .= "$('$this->filterSelector').on('change',function(){
+            setTimeout(function(){
+                location.reload();
+                reload = true;
+            },0)
+        });";
+
+
+		$container .= 'jQuery("#' . $this->pjaxSettings['options']['id'] . '")';
 		$js = $container;
 		if (ArrayHelper::getValue($this->pjaxSettings, 'neverTimeout', true)) {
 			$js .= ".on('pjax:timeout', function(e){e.preventDefault()})";
@@ -1091,18 +1105,22 @@ HTML;
 			if ($loadingCss === true) {
 				$loadingCss = 'kv-grid-loading';
 			}
-			$js .= ".on('pjax:send', function(){{$pjaxCont}.addClass('{$loadingCss}')})";
+			$js .= ".on('pjax:send', function(){if(!reload){{$pjaxCont}.addClass('{$loadingCss}')}})";
 			$postPjaxJs .= "{$pjaxCont}.removeClass('{$loadingCss}');";
 		}
 		$postPjaxJs .= "\n" . $this->_toggleScript;
 		if (!empty($postPjaxJs)) {
 			$event = 'pjax:complete.' . hash('crc32', $postPjaxJs);
-			$js .= ".off('{$event}').on('{$event}', function(){{$postPjaxJs}})";
+			$js .= ".off('{$event}').on('{$event}', function(){if(!reload){{$postPjaxJs}}})";
 		}
 		if ($js != $container) {
 			$view->registerJs("{$js};");
 		}
 		Pjax::begin($this->pjaxSettings['options']);
+
+        $switcher = "switcher('.switch')";
+        $view->registerJs("{$switcher};");
+
 		echo '<div class="kv-loader-overlay"><div class="kv-loader"></div></div>';
 		echo ArrayHelper::getValue($this->pjaxSettings, 'beforeGrid', '');
 	}
@@ -1120,8 +1138,8 @@ HTML;
 		}
 
         $this->layout = "{items}";
-        $this->portlet['actions'] = [parent::renderSection('{summary}')];
-        $this->portlet['footerContent'] = parent::renderSection('{pager}');
+        // $this->portlet['footer'] = [PageSizer::widget(), $this->renderSection('{summary}')];
+        $this->portlet['footerContent'] = Html::tag('div', parent::renderSection('{pager}'), ['class' => 'pull-left']) . Html::tag('div', PageSizer::widget() . $this->renderSection('{summary}'), ['class' => 'pull-right']);
 
         self::renderPortletBegin();
 
@@ -1241,6 +1259,9 @@ HTML;
 	protected function registerAssets()
 	{
 		$view = $this->getView();
+
+        SwitcherAsset::register($view);
+
 		$script = '';
 		if ($this->bootstrap) {
 			GridViewAsset::register($view);
