@@ -1,12 +1,4 @@
 <?php
-
-/**
- * @package   yii2-grid
- * @author	Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @version   3.3.4
- */
-
 namespace kilyakus\widget\grid;
 
 use Closure;
@@ -345,38 +337,64 @@ HTML;
 		$this->containerOptions['id'] = $this->options['id'] . '-container';
 		Html::addCssClass($this->containerOptions, 'kv-grid-container');
 
-		// $this->initPanel();
-		// $this->initLayout();
-		// $this->registerAssets();
-		// if ($this->pjax) {
-		// 	$this->beginPjax();
-		// 	parent::run();
-		// 	$this->endPjax();
-		// } else {
-		// 	parent::run();
-		// }
-        // self::renderPortletEnd();
-
         $this->registerAssets();
+
         if ($this->pjax) {
+
             $this->beginPjax();
-        $this->initPanel();
-        $this->initLayout();
+
+	        $this->renderPortletBegin();
+
+	        $this->initLayout();
             parent::run();
+
             self::renderPortletEnd();
+
             $this->endPjax();
+
         } else {
-        $this->initPanel();        $this->initLayout();
+
+	        $this->renderPortletBegin();
+
+	        $this->initLayout();
             parent::run();
-        self::renderPortletEnd();
+
+        	self::renderPortletEnd();
         }
 	}
 
     private function renderPortletBegin()
     {
-        if($this->portletAppend){
+        if($this->portletAppend !== false){
+
+        	$this->layout = "{items}";
+
+	        // $this->portlet['footer'] = [PageSizer::widget(), $this->renderSection('{summary}')];
+	        $this->portlet['footerContent'] = Html::tag('div', parent::renderSection('{pager}'), ['class' => 'pull-left']) . Html::tag('div', PageSizer::widget() . $this->renderSection('{summary}'), ['class' => 'pull-right']);
+
             Portlet::begin($this->portlet);
-        }
+
+        }else{
+        	$this->layout = "{summary}<br>\n{items}" . parent::renderSection('{pager}');
+        	
+			return;
+		}
+
+		if ($before !== false || $before !== null) {
+			static::initCss($beforeOptions, 'kv-panel-before');
+			$content = strtr($this->panelBeforeTemplate, ['{before}' => $before]);
+			$panelBefore = Html::tag('div', $content, $beforeOptions);
+		}
+		if ($after !== false && $after !== null) {
+			static::initCss($afterOptions, 'kv-panel-after');
+			$content = strtr($this->panelAfterTemplate, ['{after}' => $after]);
+			$panelAfter = Html::tag('div', $content, $afterOptions);
+		}
+
+		$this->layout = strtr($this->panelTemplate, [
+			'{panelBefore}' => $panelBefore,
+			'{panelAfter}' => $panelAfter,
+		]);
     }
 
     private function renderPortletEnd()
@@ -682,6 +700,26 @@ HTML;
 
 		return Yii::$app->getI18n()->format($summaryContent, $configSummary, Yii::$app->language);
 	}
+
+	public function renderPager()
+    {
+        $pagination = $this->dataProvider->getPagination();
+
+        if ($pagination === false || $this->dataProvider->getCount() <= 0) {
+            return '';
+        }
+        /* @var $class LinkPager */
+        $pager = $this->pager;
+        $class = ArrayHelper::remove($pager, 'class', \yii\widgets\LinkPager::className());
+        $pager['pagination'] = $pagination;
+        $pager['view'] = $this->getView();
+
+        if($class::widget($pager)){
+        	return '<br>' . $class::widget($pager);
+        }else{
+        	return;
+        }
+    }
 
 	protected function initModule()
 	{
@@ -1129,35 +1167,6 @@ HTML;
 	{
 		echo ArrayHelper::getValue($this->pjaxSettings, 'afterGrid', '');
 		Pjax::end();
-	}
-
-	protected function initPanel()
-	{
-		if ($this->portletAppend === false) {
-			return;
-		}
-
-        $this->layout = "{items}";
-        // $this->portlet['footer'] = [PageSizer::widget(), $this->renderSection('{summary}')];
-        $this->portlet['footerContent'] = Html::tag('div', parent::renderSection('{pager}'), ['class' => 'pull-left']) . Html::tag('div', PageSizer::widget() . $this->renderSection('{summary}'), ['class' => 'pull-right']);
-
-        self::renderPortletBegin();
-
-		if ($before !== false || $before !== null) {
-			static::initCss($beforeOptions, 'kv-panel-before');
-			$content = strtr($this->panelBeforeTemplate, ['{before}' => $before]);
-			$panelBefore = Html::tag('div', $content, $beforeOptions);
-		}
-		if ($after !== false && $after !== null) {
-			static::initCss($afterOptions, 'kv-panel-after');
-			$content = strtr($this->panelAfterTemplate, ['{after}' => $after]);
-			$panelAfter = Html::tag('div', $content, $afterOptions);
-		}
-
-		$this->layout = strtr($this->panelTemplate, [
-			'{panelBefore}' => $panelBefore,
-			'{panelAfter}' => $panelAfter,
-		]);
 	}
 
 	protected function renderToolbar()
