@@ -1,12 +1,4 @@
 <?php
-
-/**
- * @package   yii2-grid
- * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @version   3.3.4
- */
-
 namespace kilyakus\widget\grid;
 
 use Closure;
@@ -14,13 +6,6 @@ use yii\grid\DataColumn as YiiDataColumn;
 use kilyakus\widgets\Config;
 use yii\helpers\Html;
 
-/**
- * The DataColumn is the default column type for the [[GridView]] widget and extends the [[YiiDataColumn]] with various
- * enhancements.
- *
- * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since  1.0
- */
 class DataColumn extends YiiDataColumn
 {
     use ColumnTrait;

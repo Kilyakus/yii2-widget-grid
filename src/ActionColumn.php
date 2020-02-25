@@ -1,11 +1,4 @@
 <?php
-
-/**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @package yii2-grid
- * @version 3.3.4
- */
-
 namespace kilyakus\widget\grid;
 
 use Closure;

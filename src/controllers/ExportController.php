@@ -1,12 +1,4 @@
 <?php
-
-/**
- * @package   yii2-grid
- * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @version   3.3.4
- */
-
 namespace kilyakus\widget\grid\controllers;
 
 use Yii;
@@ -20,12 +12,6 @@ use kilyakus\widget\grid\GridView;
 use kartik\mpdf\Pdf;
 use kilyakus\widget\grid\Module;
 
-/**
- * ExportController manages actions for downloading the [[GridView]] tabular content in various export formats.
- *
- * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
- */
 class ExportController extends Controller
 {
     /**

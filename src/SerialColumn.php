@@ -1,12 +1,4 @@
 <?php
-
-/**
- * @package   yii2-grid
- * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @version   3.3.4
- */
-
 namespace kilyakus\widget\grid;
 
 use Closure;
@@ -67,9 +59,6 @@ class SerialColumn extends YiiSerialColumn
      */
     public $exportMenuHeaderStyle = ['alignment'=>['vertical' => GridView::ALIGN_CENTER]];
 
-    /**
-     * @inheritdoc
-     */
     public function init()
     {
         $this->initColumnSettings([
@@ -84,9 +73,6 @@ class SerialColumn extends YiiSerialColumn
         $this->setPageRows();
     }
 
-    /**
-     * @inheritdoc
-     */
     public function renderDataCell($model, $key, $index)
     {
         $options = $this->fetchContentOptions($model, $key, $index);

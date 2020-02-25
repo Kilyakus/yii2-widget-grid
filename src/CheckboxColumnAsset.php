@@ -1,22 +1,8 @@
 <?php
-
-/**
- * @package   yii2-grid
- * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @version   3.3.4
- */
-
 namespace kilyakus\widget\grid;
 
 use kilyakus\widgets\AssetBundle;
 
-/**
- * Asset bundle for [[CheckboxColumn]] functionality of the [[GridView]] widget.
- *
- * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
- */
 class CheckboxColumnAsset extends AssetBundle
 {
     /**
@@ -24,7 +10,7 @@ class CheckboxColumnAsset extends AssetBundle
      */
     public function init()
     {
-        $this->depends = array_merge(["kartik\\grid\\GridViewAsset"], $this->depends);
+        $this->depends = array_merge(["kilyakus\\widget\\grid\\GridViewAsset"], $this->depends);
         $this->setSourcePath(__DIR__ . '/assets');
         $this->setupAssets('js', ['js/kv-grid-checkbox']);
         parent::init();
