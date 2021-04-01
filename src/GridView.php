@@ -63,7 +63,7 @@ class GridView extends YiiGridView implements BootstrapInterface
 	const FILTER_DATE = '\kartik\date\DatePicker';
 	const FILTER_TIME = '\kartik\time\TimePicker';
 	const FILTER_DATETIME = '\kartik\datetime\DateTimePicker';
-	const FILTER_DATE_RANGE = '\kartik\daterange\DateRangePicker';
+	const FILTER_DATE_RANGE = '\kilyakus\widget\daterange\DateRangePicker';
 	const FILTER_SORTABLE = '\kartik\sortinput\SortableInput';
 	const FILTER_COLOR = '\kartik\color\ColorInput';
 	const FILTER_SLIDER = '\kartik\slider\Slider';
@@ -382,13 +382,17 @@ HTML;
 
 		if ($before !== false || $before !== null) {
 			static::initCss($beforeOptions, 'kv-panel-before');
-			$content = strtr($this->panelBeforeTemplate, ['{before}' => $before]);
-			$panelBefore = Html::tag('div', $content, $beforeOptions);
+			if($content = strtr($this->panelBeforeTemplate, ['{before}' => $before]))
+			{
+				$panelBefore = Html::tag('div', $content, $beforeOptions);
+			}
 		}
 		if ($after !== false && $after !== null) {
 			static::initCss($afterOptions, 'kv-panel-after');
-			$content = strtr($this->panelAfterTemplate, ['{after}' => $after]);
-			$panelAfter = Html::tag('div', $content, $afterOptions);
+			if($content = strtr($this->panelAfterTemplate, ['{after}' => $after]))
+			{
+				$panelAfter = Html::tag('div', $content, $afterOptions);
+			}
 		}
 
 		$this->layout = strtr($this->panelTemplate, [
@@ -715,7 +719,8 @@ HTML;
         $pager['view'] = $this->getView();
 
         if($class::widget($pager)){
-        	return '<br>' . $class::widget($pager);
+        	// return '<br>' . $class::widget($pager);
+        	return $class::widget($pager);
         }else{
         	return;
         }
@@ -1193,6 +1198,10 @@ HTML;
 
 	protected function renderToolbarContainer()
 	{
+		if (empty($this->toolbar) || (!is_string($this->toolbar) && !is_array($this->toolbar))) {
+			return '';
+		}
+
 		$tag = ArrayHelper::remove($this->toolbarContainerOptions, 'tag', 'div');
 
 		/**
